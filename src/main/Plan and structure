@@ -1,0 +1,48 @@
+A drinking online shop, that is selling alcoholic and non alcoholic drinks.
+
+Main Menu
+----------------
+1. Log in
+2. Log in as admin
+3. Sign Up
+4. Drinks and quantity
+
+1. Log in
+name:
+Password
+
+
+-----> User
+Buy Drink
+Avaiable or not? Price? are you old enough?
+Drinks and quantity and age
+Log out
+
+------> admin
+Add drinks, refill drinks
+show avaiable and outofstock
+Delete drinks
+Member list
+Drinks and quantity and age
+Selling list and total profit
+Log out
+
+
+
+
+
+
+
+
+3. Sign up
+-------
+Whats your name?
+How old are you?
+Choose Password:
+
+4. Drinks and quantity
+Drink name:     quantity      Age
+
+
+
+
