@@ -23,10 +23,7 @@ public class Customer {
         return password;
     }
 
-    public boolean canBuy(Drink drink){
-        if (age >= drink.ageLimit()) {
-            return true;
-        }
-        return false;
-    }
+   public boolean checkPassword(String password){
+        return this.password.equals(password);
+   }
 }
