@@ -4,11 +4,13 @@ public class Customer {
     private String name;
     private int age;
     private String password;
+    private boolean admin;
 
-    public Customer(String name, int age, String password){
+    public Customer(String name, int age, String password, boolean admin) {
         this.name = name;
         this.age = age;
         this.password = password;
+        this.admin = admin;
     }
 
     public String getName() {

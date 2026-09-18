@@ -9,6 +9,8 @@ public class Shop {
 
     private double totalSales = 0;
 
+
+
     public void addDrink(Drink drink) {
         if (drinkCounter >= drinks.length) {
             IO.println("There is no more space for drinks!");
@@ -21,14 +23,33 @@ public class Shop {
         IO.println("Drink added successfully!");
     }
 
-    public void addCustomer(Customer customer) {
+    public void addCustomer() {
         if (customerCounter >= customers.length) {
             IO.println("There is no more space for customers!");
             return;
         }
+        else {
 
-        customers[customerCounter] = customer;
-        customerCounter++;
+            String username = IO.readln("Choose a Username: ");
+            int age = Integer.parseInt(IO.readln("How old are you? "));
+            String password = IO.readln("Choose a Password: ");
+            String admin = IO.readln("Are you an admin yes or no? (y/n)");
+
+            boolean a;
+
+            if  (admin.equals("y")) {
+                a = true;
+            }
+            else
+                a = false;
+
+            Customer customer = new Customer(username, age, password, a);
+
+            customers[customerCounter] = customer;
+            customerCounter++;
+
+
+        }
     }
 
     public void showDrinks(){
@@ -62,6 +83,7 @@ public class Shop {
     }
 
     public Drink findDrink(String drinkName) {
+        sortDrinkbyPrice();
         for (int i = 0; i < drinkCounter; i++) {
 
             if(drinks[i].dName().equalsIgnoreCase(drinkName)) {
@@ -71,12 +93,24 @@ public class Shop {
         return null;
     }
 
+    public void sortDrinkbyPrice() {
+        for (int i = 0; i < drinkCounter; i++) {
+            for (int j = 0; j < drinkCounter - 1; j++) {
+                if (drinks[i].price() < drinks[j].price()) {
+                    Drink temp = drinks[j];
+
+                    drinks[j] = drinks[i + 1];
+                    drinks[i + 1] = temp;
+                }
+            }
+        }
+    }
+
     public void buyDrink(Customer customer, String drinkName) {
 
         Drink drink = findDrink(drinkName);
 
         if (drink != null) {
-            IO.println("Drink not found!");
             return;
         }
 

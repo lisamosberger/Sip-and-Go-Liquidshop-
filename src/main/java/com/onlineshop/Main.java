@@ -17,9 +17,9 @@ public class Main {
         shop.showDrinks();
 
 
-        Customer customer = new Customer("First user", 18, "1234");
+        Customer customer = new Customer("First user", 18, "1234", false);
 
-        shop.addCustomer(customer);
+        shop.addCustomer();
 
         if (shop.findCustomer("First user") == null) {
             IO.println("Customer not found");
