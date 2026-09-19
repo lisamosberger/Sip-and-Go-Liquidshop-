@@ -1,5 +1,7 @@
 package com.onlineshop;
 
+import java.lang.reflect.Member;
+
 public class Shop {
     private Drink [] drinks = new Drink[10];
     private Customer [] customers = new Customer[10];
@@ -11,7 +13,15 @@ public class Shop {
 
 
 
-    public void addDrink(Drink drink) {
+    public void addDrink() {
+
+        String Name = IO.readln("What drink do you want to add? ");
+        int quantity = Integer.parseInt(IO.readln("How many of them? "));
+        double price = Double.parseDouble(IO.readln("What should be the price? "));
+        int ageLimit = Integer.parseInt(IO.readln("Whats the age limit? "));
+
+        Drink drink = new Drink(Name, price, ageLimit, quantity);
+
         if (drinkCounter >= drinks.length) {
             IO.println("There is no more space for drinks!");
             return;
@@ -21,6 +31,8 @@ public class Shop {
         drinkCounter++;
 
         IO.println("Drink added successfully!");
+
+
     }
 
     public void addCustomer() {
@@ -48,11 +60,31 @@ public class Shop {
             customers[customerCounter] = customer;
             customerCounter++;
 
+            ShopSystem.main();
+
 
         }
     }
 
+    public void showCustomers() {
+
+        IO.println("Customers:");
+        IO.println("--------------");
+
+        for (int i = 0; i < customerCounter; i++) {
+
+            Customer customer = customers[i];
+
+            if (customerCounter > 0 ) {
+                IO.println("Username:" + customer.getName()
+                + "\n Age: " + customer.getAge()
+                + "\n Password: " + customer.getPassword());
+            }
+        }
+    }
+
     public void showDrinks(){
+        sortDrinkbyPrice();
 
         IO.println("`\nDrinks:");
         IO.println("--------------");
@@ -82,14 +114,16 @@ public class Shop {
         return null;
     }
 
-    public Drink findDrink(String drinkName) {
-        sortDrinkbyPrice();
+    public Drink findDrink() {
+        showDrinks();
+        String drinkName = IO.readln("Choose a Drink: ");
         for (int i = 0; i < drinkCounter; i++) {
 
             if(drinks[i].dName().equalsIgnoreCase(drinkName)) {
                 return drinks[i];
             }
         }
+        IO.println("Drink not found!");
         return null;
     }
 
@@ -106,11 +140,11 @@ public class Shop {
         }
     }
 
-    public void buyDrink(Customer customer, String drinkName) {
+    public void buyDrink(Customer customer) {
 
-        Drink drink = findDrink(drinkName);
+        Drink drink = findDrink();
 
-        if (drink != null) {
+        if (drink == null) {
             return;
         }
 
@@ -136,8 +170,33 @@ public class Shop {
                 drink.quantity() - 1
         );
 
-        IO.println(drinkName + " has been bought successfully!");
+        IO.println(drink + " has been bought successfully!");
 
+    }
+
+    public Customer login(){
+        String username = IO.readln("Username: ");
+        String password = IO.readln("Password: ");
+
+        for (int i = 0; i < customerCounter; i++) {
+            if(customers[i].getName().equals(username) && customers[i].checkPassword(password)) {
+                Customer loggedInCustomer = customers[i];
+                IO.println("You are now logged in!");
+                if (customers[i].getAdmin() == true) {
+                    ShopSystem.adminMenu(loggedInCustomer);
+                }
+                else {
+                    ShopSystem.userMenu(loggedInCustomer);
+                }
+
+                return loggedInCustomer;
+
+            }
+            else  {
+                IO.println("Invalid username or password!");
+            }
+        }
+        return null;
     }
 
     private int index(Drink drink) {
@@ -151,4 +210,7 @@ public class Shop {
         return -1;
     }
 
+    public double getTotalSales() {
+        return totalSales;
+    }
 }

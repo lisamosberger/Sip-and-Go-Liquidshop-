@@ -25,6 +25,10 @@ public class Customer {
         return password;
     }
 
+    public boolean getAdmin() {
+        return admin;
+    }
+
    public boolean checkPassword(String password){
         return this.password.equals(password);
    }

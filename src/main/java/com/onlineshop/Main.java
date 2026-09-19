@@ -10,10 +10,6 @@ public class Main {
         Drink juice = new Drink("Juice", 10, 0, 49);
         Drink energydrink = new Drink("Energy drink", 10, 15, 29);
 
-        shop.addDrink(cola);
-        shop.addDrink(juice);
-        shop.addDrink(energydrink);
-
         shop.showDrinks();
 
 
@@ -28,14 +24,6 @@ public class Main {
             IO.println("Customer found");
         }
 
-        if (shop.findDrink("Energy drink") == null) {
-            IO.println("Drink not found");
-        }
-        else {
-            IO.println("Drink found");
-        }
-
-        shop.buyDrink(customer, "Cola");
 
         shop.showDrinks();
 
